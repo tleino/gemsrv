@@ -1,0 +1,34 @@
+gemsrv - A simple Gemini-protocol server
+
+Dependencies
+============
+
+On Linux:
+- libretls (libtls)
+
+None on OpenBSD.
+
+Configure & Install
+===================
+
+./configure ~
+make install
+
+Example
+=======
+
+openssl req \
+	-x509 \
+	-sha256 \
+	-newkey rsa:2048 \
+	-keyout cert.key \
+	-out cert.crt \
+	-days 1024 \
+	-nodes
+
+echo "testfile" >index
+echo "foobar" >testfile
+
+./gemsrv cert.crt cert.key &
+openssl s_client -connect 127.0.0.1:1965
+gemini://localhost/testfile
